@@ -1,26 +1,155 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-navy:   #1B2D42;
+  --color-harbor: #122033;
+  --color-champ:  #D5BE97;
+  --color-porc:   #F7F2EC;
+  --color-cash:   #E3DACE;
+  --color-taupe:  #8D7A67;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-porc);
+  color: var(--color-navy);
+  font-family: var(--font-montserrat), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+/* Editorial selection */
+::selection {
+  background: var(--color-champ);
+  color: var(--color-navy);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--color-porc); }
+::-webkit-scrollbar-thumb { background: var(--color-champ); border-radius: 2px; }
+
+/* ── Animations ─────────────────────────────────────────────────── */
+
+@keyframes scrollDown {
+  0%   { opacity: 0.15; transform: scaleY(0.8) translateY(-4px); }
+  60%  { opacity: 0.55; transform: scaleY(1.1) translateY(2px); }
+  100% { opacity: 0.15; transform: scaleY(0.8) translateY(-4px); }
+}
+
+@keyframes chamLineGrow {
+  from { transform: scaleX(0); opacity: 0; }
+  to   { transform: scaleX(1); opacity: 1; }
+}
+
+.scroll-line {
+  animation: scrollDown 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  transform-origin: top center;
+}
+
+/* ── Responsive ─────────────────────────────────────────────────── */
+/*
+ * Breakpoint map:
+ *   ≤1366px  iPad Pro 12.9" portrait / 11" landscape
+ *   ≤1024px  iPad Air landscape / iPad Pro 11" portrait
+ *   ≤820px   iPad Air portrait / standard iPad landscape
+ *   ≤768px   Standard iPad portrait / iPad mini
+ *   ≤640px   Mobile / iPhone
+ */
+
+/* ── iOS safe area / overscroll ─── */
+html, body { overscroll-behavior: none; }
+/* iOS vh fix */
+.full-vh { min-height: 100svh; }
+
+/* ── iPad Pro range (1025–1366px) ─── */
+@media (min-width: 1025px) and (max-width: 1366px) {
+  .section-pad  { padding: 88px 64px !important; }
+  .nav-labels   { display: none !important; }
+  .side-nav     { right: 20px !important; }
+}
+
+/* ── iPad landscape / iPad Pro 11" portrait (≤1024px) ─── */
+@media (max-width: 1024px) {
+  /* Essence words: reduce gap so they don't force line breaks mid-word */
+  .essence-words { gap: 0 28px !important; }
+  .section-pad   { padding: 80px 56px !important; }
+  .hero-wordmark { font-size: 60px !important; }
+  .nav-labels    { display: none !important; }
+  .side-nav      { right: 20px !important; }
+  /* Tighten mark row so it doesn't crowd the viewport */
+  .mark-row      { gap: 56px !important; }
+}
+
+/* ── iPad portrait / Air portrait (≤820px) ─── */
+@media (max-width: 820px) {
+  .type-display    { font-size: 48px !important; }
+  .type-display-sm { font-size: 34px !important; }
+  .section-pad   { padding: 72px 48px !important; }
+  .hero-wordmark { font-size: 50px !important; }
+  /* Hide side nav — too narrow for portrait */
+  .side-nav      { display: none !important; }
+  /* Bag hero stacks vertically */
+  .bag-layout    { flex-direction: column !important; gap: 36px !important; align-items: flex-start !important; }
+  /* 3-col → 2-col for events and packaging items */
+  .grid-3col     { grid-template-columns: 1fr 1fr !important; gap: 28px !important; }
+  .events-grid   { grid-template-columns: 1fr 1fr !important; gap: 12px !important; }
+  /* Mark row wraps, tighter gap */
+  .mark-row      { gap: 40px !important; flex-wrap: wrap !important; justify-content: center !important; }
+  .divider-v     { display: none !important; }
+  /* Colorway tiles wrap at 2-per-row */
+  .colorway-row  { flex-wrap: wrap !important; }
+  .colorway-item { min-width: calc(50% - 6px) !important; }
+  /* Social stacks */
+  .social-layout { flex-direction: column !important; gap: 40px !important; }
+}
+
+/* ── Standard iPad portrait / iPad mini (≤768px) ─── */
+@media (max-width: 768px) {
+  /* Palette: 3 swatches per row on iPad portrait */
+  .palette-col    { flex: none !important; width: calc(33.333% - 6px) !important; }
+  .section-pad   { padding: 64px 40px !important; }
+  .hero-wordmark { font-size: 46px !important; letter-spacing: 0.20em !important; }
+  /* Packaging 3-col → 1-col so each item reads clearly */
+  .grid-3col     { grid-template-columns: 1fr !important; gap: 40px !important; }
+  /* Essence words: stack at comfortable width */
+  .essence-words { gap: 0 20px !important; }
+  /* Events stays 2-col (Grand Opening + VIP side by side) */
+  .events-grid   { grid-template-columns: 1fr 1fr !important; }
+  /* Palette wraps to 3-per-row */
+  .palette-swatches { flex-wrap: wrap !important; gap: 8px !important; }
+  .palette-swatch   { min-width: calc(33.333% - 6px) !important; flex: none !important; height: 130px !important; }
+  /* Mark row tighter */
+  .mark-row      { gap: 28px !important; }
+  /* Card pairs: wrap so front/back of card are still side by side */
+  .card-pair     { flex-wrap: wrap !important; justify-content: flex-start !important; }
+}
+
+/* ── Mobile / iPhone (≤640px) ─── */
+@media (max-width: 640px) {
+  .section-pad      { padding: 56px 24px !important; }
+  .hero-wordmark    { font-size: 34px !important; letter-spacing: 0.16em !important; }
+  .grid-3col        { grid-template-columns: 1fr !important; gap: 24px !important; }
+  .grid-2col        { grid-template-columns: 1fr !important; gap: 24px !important; }
+  .events-grid      { grid-template-columns: 1fr !important; gap: 10px !important; }
+  .mark-row         { flex-direction: column !important; gap: 36px !important; }
+  .bag-layout       { gap: 28px !important; }
+  .colorway-row     { flex-wrap: wrap !important; }
+  .colorway-item    { min-width: calc(50% - 6px) !important; }
+  .palette-swatches { flex-wrap: wrap !important; }
+  .palette-swatch   { min-width: calc(50% - 6px) !important; height: 100px !important; }
+  .card-pair        { gap: 8px !important; }
+  .social-layout    { gap: 36px !important; }
+  .side-nav         { display: none !important; }
 }
