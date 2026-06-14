@@ -1,10 +1,19 @@
 import Reveal from "../Reveal";
 import Wordmark from "../Wordmark";
 import Seal from "../Seal";
+import OakLeaf from "../concepts/OakLeaf";
 
 const SERIF = "var(--font-cormorant), Didot, Georgia, serif";
 const SANS  = "var(--font-montserrat), sans-serif";
 
+/**
+ * StackedWordmark — stacked OAK / + / MAIN arrangement.
+ * Secondary mark for narrow-format applications: hang tags, tissue stamps.
+ *
+ * The "+" is sized at 72% of the main text (not 50%) so it reads as a
+ * proportional separator rather than a superscript. lineHeight is tightened
+ * to keep the three lines as a cohesive unit.
+ */
 function StackedWordmark({ color = "#F7F2EC", size = 22 }: { color?: string; size?: number }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
@@ -13,13 +22,13 @@ function StackedWordmark({ color = "#F7F2EC", size = 22 }: { color?: string; siz
           key={w}
           style={{
             fontFamily: SERIF,
-            fontSize: i === 1 ? size * 0.5 : size,
-            fontWeight: 400,
-            letterSpacing: i === 1 ? "0.06em" : "0.22em",
+            fontSize:      i === 1 ? size * 0.72 : size,
+            fontWeight:    400,
+            letterSpacing: i === 1 ? "0.14em" : "0.22em",
             color,
             textTransform: "uppercase",
-            lineHeight: i === 1 ? 1.1 : 1.2,
-            userSelect: "none",
+            lineHeight:    i === 1 ? 1.05 : 1.15,
+            userSelect:    "none",
           }}
         >
           {w}
@@ -29,6 +38,10 @@ function StackedWordmark({ color = "#F7F2EC", size = 22 }: { color?: string; siz
   );
 }
 
+/**
+ * Monogram — OM overlapping serif letterforms.
+ * Tertiary element for intimate brand touchpoints.
+ */
 function Monogram({ color = "#D5BE97", size = 120 }: { color?: string; size?: number }) {
   return (
     <svg width={size} height={size * 0.9} viewBox="0 0 130 120">
@@ -87,50 +100,89 @@ export default function LogoMark() {
         </span>
       </Reveal>
 
-      {/* Primary wordmark */}
+      {/* Primary mark — OAK + MAIN / Boutique */}
       <Reveal delay={100}>
-        <Wordmark color="#F7F2EC" size={64} tracking="0.24em" />
+        <Wordmark
+          color="#F7F2EC"
+          size={64}
+          tracking="0.24em"
+          boutiqueColor="#D5BE97"
+        />
       </Reveal>
 
-      {/* Champagne rule */}
+      {/* Secondary wordmark — smaller alt-weight mark, Boutique hidden at this scale */}
       <Reveal delay={200}>
-        <div style={{ width: 80, height: 0.5, background: "#D5BE97", opacity: 0.7 }} />
-      </Reveal>
-
-      {/* Secondary wordmark */}
-      <Reveal delay={300}>
-        <Wordmark color="#D5BE97" size={36} tracking="0.38em" weight={300} />
+        <Wordmark
+          color="#D5BE97"
+          size={32}
+          tracking="0.38em"
+          weight={300}
+          hideBoutique
+        />
       </Reveal>
 
       {/* Three marks row */}
-      <Reveal delay={400} direction="up">
+      <Reveal delay={300} direction="up">
         <div
           className="mark-row"
           style={{
             display: "flex",
             gap: 80,
             alignItems: "center",
-            marginTop: 32,
+            marginTop: 24,
             flexWrap: "wrap",
             justifyContent: "center",
           }}
         >
+          {/* Stacked wordmark */}
           <StackedWordmark color="#F7F2EC" size={22} />
+
           <div className="divider-v" style={{ width: 0.5, height: 100, background: "#D5BE97", opacity: 0.25 }} />
+
+          {/* Monogram */}
           <Monogram color="#D5BE97" size={110} />
+
           <div className="divider-v" style={{ width: 0.5, height: 100, background: "#D5BE97", opacity: 0.25 }} />
+
+          {/* Premium seal — oak leaf as secondary luxury motif */}
           <Seal color="#D5BE97" size={140} id="mark-seal" />
         </div>
       </Reveal>
 
+      {/* Oak leaf note */}
+      <Reveal delay={380}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 14,
+            opacity: 0.45,
+          }}
+        >
+          <OakLeaf size={18} color="#D5BE97" sw={0.9} />
+          <span
+            style={{
+              fontFamily: SANS,
+              fontSize: 7.5,
+              letterSpacing: "0.18em",
+              color: "#D5BE97",
+              textTransform: "uppercase",
+            }}
+          >
+            Oak Leaf — Secondary Brand Motif
+          </span>
+          <OakLeaf size={18} color="#D5BE97" sw={0.9} />
+        </div>
+      </Reveal>
+
       {/* Colorway row */}
-      <Reveal delay={500}>
+      <Reveal delay={460}>
         <div
           className="colorway-row"
           style={{
             display: "flex",
             gap: 12,
-            marginTop: 16,
+            marginTop: 8,
             width: "100%",
             maxWidth: 680,
           }}
@@ -150,22 +202,12 @@ export default function LogoMark() {
                 background: bg,
                 borderRadius: 2,
                 display: "flex",
+                flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
               }}
             >
-              <span
-                style={{
-                  fontFamily: SERIF,
-                  fontSize: 13,
-                  letterSpacing: "0.22em",
-                  textTransform: "uppercase",
-                  color: tc,
-                  userSelect: "none",
-                }}
-              >
-                OAK + MAIN
-              </span>
+              <Wordmark size={12} color={tc} />
             </div>
           ))}
         </div>

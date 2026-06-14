@@ -1,4 +1,5 @@
 import Reveal from "../Reveal";
+import Wordmark from "../Wordmark";
 
 const SERIF = "var(--font-cormorant), Didot, Georgia, serif";
 const SANS  = "var(--font-montserrat), sans-serif";
@@ -40,28 +41,16 @@ function BusinessCard({
     >
       {front ? (
         <>
-          <span
-            style={{
-              fontFamily: SERIF,
-              fontSize: 15,
-              letterSpacing: "0.22em",
-              textTransform: "uppercase",
-              color: wordColor,
-              userSelect: "none",
-              whiteSpace: "nowrap",
-            }}
-          >
-            OAK + MAIN
-          </span>
-          <div style={{ width: 36, height: 0.4, background: "#D5BE97", opacity: 0.7 }} />
+          {/* Shared Wordmark component — optically centred Boutique */}
+          <Wordmark size={15} color={wordColor} boutiqueColor={wordColor} />
           {tagline && (
             <span
               style={{
-                fontFamily: SANS,
-                fontSize: 7,
-                letterSpacing: "0.16em",
-                color: wordColor,
-                opacity: 0.45,
+                fontFamily:    SANS,
+                fontSize:      6.5,
+                letterSpacing: "0.14em",
+                color:         wordColor,
+                opacity:       0.35,
                 textTransform: "uppercase",
               }}
             >

@@ -1,9 +1,15 @@
 import Reveal from "../Reveal";
 import Seal from "../Seal";
+import Wordmark from "../Wordmark";
+import OakLeaf from "../concepts/OakLeaf";
 
 const SERIF = "var(--font-cormorant), Didot, Georgia, serif";
 const SANS  = "var(--font-montserrat), sans-serif";
 
+/**
+ * ShoppingBag — matte Porcelain body, Heritage Navy wordmark.
+ * No rule beneath the logo. Oak leaf as a subtle accent near the base.
+ */
 function ShoppingBag({ scale = 1 }: { scale?: number }) {
   const w = 200 * scale;
   const h = 260 * scale;
@@ -11,63 +17,70 @@ function ShoppingBag({ scale = 1 }: { scale?: number }) {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-      {/* Handles */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-around",
-          width: f(120),
-          marginBottom: -1,
-        }}
+      {/* Rope handles — arched for realism */}
+      <svg
+        width={f(130)}
+        height={f(44)}
+        viewBox="0 0 130 44"
+        style={{ marginBottom: -1 }}
       >
-        <div style={{ width: f(2), height: f(40), background: "#D5BE97", borderRadius: f(1) }} />
-        <div style={{ width: f(2), height: f(40), background: "#D5BE97", borderRadius: f(1) }} />
-      </div>
+        <path
+          d="M 30,42 C 30,12 46,4 65,4 C 84,4 100,12 100,42"
+          fill="none"
+          stroke="#D5BE97"
+          strokeWidth={f(2)}
+          strokeLinecap="round"
+          opacity="0.7"
+        />
+      </svg>
+
       {/* Bag body */}
       <div
         style={{
-          width: w,
-          height: h,
-          background: "#F7F2EC",
-          border: "0.5px solid #1B2D4218",
-          borderRadius: `0 0 ${f(3)}px ${f(3)}px`,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          width:          w,
+          height:         h,
+          background:     "#F7F2EC",
+          border:         "0.5px solid #1B2D4218",
+          borderRadius:   `0 0 ${f(3)}px ${f(3)}px`,
+          display:        "flex",
+          flexDirection:  "column",
+          alignItems:     "center",
           justifyContent: "center",
-          gap: f(8),
+          // Luxury bags position the mark slightly above true centre.
+          // paddingBottom shifts the flex origin upward by half its value.
+          paddingBottom:  f(24),
+          position:       "relative",
         }}
       >
-        <span
+        {/* Shared Wordmark component — OAK + MAIN / Boutique, optically centred */}
+        <Wordmark
+          color="#1B2D42"
+          size={f(18)}
+          tracking="0.22em"
+        />
+
+        {/* Oak leaf — subtle accent near bag base */}
+        <div
           style={{
-            fontFamily: SERIF,
-            fontSize: f(18),
-            letterSpacing: "0.22em",
-            textTransform: "uppercase",
-            color: "#1B2D42",
-            userSelect: "none",
+            position:    "absolute",
+            bottom:      f(18),
+            display:     "flex",
+            alignItems:  "center",
+            opacity:     0.25,
           }}
         >
-          OAK + MAIN
-        </span>
-        <div style={{ width: f(50), height: 0.4, background: "#D5BE97", opacity: 0.6 }} />
-        <span
-          style={{
-            fontFamily: SANS,
-            fontSize: f(6),
-            letterSpacing: "0.22em",
-            color: "#1B2D42",
-            opacity: 0.4,
-            textTransform: "uppercase",
-          }}
-        >
-          ROSEBURG, OREGON
-        </span>
+          <OakLeaf size={f(13)} color="#1B2D42" sw={0.85} />
+        </div>
       </div>
     </div>
   );
 }
 
+/**
+ * ClothingTag — Heritage Navy card with stacked wordmark.
+ * Front: OAK / + / MAIN + oak leaf accent.
+ * Back: Location + Est.
+ */
 function ClothingTag() {
   return (
     <div style={{ display: "flex", gap: 8 }}>
@@ -83,10 +96,11 @@ function ClothingTag() {
           alignItems: "center",
           justifyContent: "center",
           padding: "14px 10px",
-          gap: 3,
+          gap: 2,
           position: "relative",
         }}
       >
+        {/* Punch hole */}
         <div
           style={{
             position: "absolute",
@@ -99,26 +113,30 @@ function ClothingTag() {
             border: "0.5px solid #D5BE9740",
           }}
         />
-        <div style={{ marginTop: 14 }} />
+        <div style={{ marginTop: 12 }} />
         {(["OAK", "+", "MAIN"] as const).map((w, i) => (
           <span
             key={w}
             style={{
-              fontFamily: SERIF,
-              fontSize: i === 1 ? 8 : 12,
-              fontWeight: 400,
-              letterSpacing: i === 1 ? "0.05em" : "0.2em",
-              color: "#F7F2EC",
+              fontFamily:    SERIF,
+              fontSize:      i === 1 ? 9 : 12,
+              fontWeight:    400,
+              letterSpacing: i === 1 ? "0.12em" : "0.20em",
+              color:         "#F7F2EC",
               textTransform: "uppercase",
-              lineHeight: i === 1 ? 1.0 : 1.2,
-              userSelect: "none",
+              lineHeight:    i === 1 ? 1.05 : 1.15,
+              userSelect:    "none",
             }}
           >
             {w}
           </span>
         ))}
-        <span style={{ fontFamily: SERIF, fontSize: 8, color: "#D5BE97", marginTop: 6, letterSpacing: "0.04em" }}>OM</span>
+        {/* Oak leaf accent — replaces the OM */}
+        <div style={{ marginTop: 6, opacity: 0.55 }}>
+          <OakLeaf size={13} color="#D5BE97" sw={0.9} />
+        </div>
       </div>
+
       {/* Back */}
       <div
         style={{
@@ -165,6 +183,11 @@ function ClothingTag() {
   );
 }
 
+/**
+ * ThankYouCard — A2 flat card.
+ * Front: italic sentiment. Inside: brand signature.
+ * Oak leaf replaces the OM monogram as a subtle close.
+ */
 function ThankYouCard() {
   return (
     <div style={{ display: "flex", gap: 2 }}>
@@ -197,8 +220,12 @@ function ThankYouCard() {
         >
           Thank you for shopping small.
         </span>
-        <span style={{ fontFamily: SERIF, fontSize: 9, color: "#D5BE97", letterSpacing: "0.04em" }}>OM</span>
+        {/* Oak leaf — delicate close */}
+        <div style={{ opacity: 0.35 }}>
+          <OakLeaf size={12} color="#1B2D42" sw={0.9} />
+        </div>
       </div>
+
       {/* Inside */}
       <div
         style={{
@@ -228,7 +255,7 @@ function ThankYouCard() {
         >
           We appreciate your support and hope you love what you found.
         </span>
-        <span style={{ fontFamily: SERIF, fontSize: 8, color: "#1B2D42", opacity: 0.55, letterSpacing: "0.06em" }}>
+        <span style={{ fontFamily: SERIF, fontSize: 8, fontStyle: "italic", color: "#1B2D42", opacity: 0.55, letterSpacing: "0.06em" }}>
           — Oak + Main
         </span>
       </div>
@@ -254,11 +281,11 @@ export default function Packaging() {
               fontSize: 9,
               letterSpacing: "0.28em",
               color: "#1B2D42",
-            opacity: 0.65,
-            textTransform: "uppercase",
-          }}
-        >
-          The Packaging Experience
+              opacity: 0.65,
+              textTransform: "uppercase",
+            }}
+          >
+            The Packaging Experience
           </span>
         </Reveal>
 
@@ -304,7 +331,7 @@ export default function Packaging() {
                   maxWidth: 260,
                 }}
               >
-                Matte-coated Porcelain paper · Heritage Navy wordmark · Brushed Champagne rope handles · Structured base
+                Matte-coated Porcelain paper · Heritage Navy wordmark · Brushed Champagne rope handles · Structured base · Oak leaf accent
               </span>
               <span
                 style={{
@@ -361,7 +388,7 @@ export default function Packaging() {
                     lineHeight: 1.9,
                   }}
                 >
-                  Heritage Navy · Champagne twine
+                  Heritage Navy · Oak leaf accent · Champagne twine
                 </span>
               </div>
             </div>
@@ -393,14 +420,14 @@ export default function Packaging() {
                     lineHeight: 1.9,
                   }}
                 >
-                  Porcelain stock · A2 flat card
+                  Porcelain stock · A2 flat card · Cashmere interior
                 </span>
               </div>
             </div>
 
             {/* Seal Sticker */}
             <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-              <Seal color="#D5BE97" size={140} id="pkg-seal" />
+              <Seal color="#1B2D42" size={140} id="pkg-seal" />
               <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
                 <span
                   style={{
@@ -425,7 +452,7 @@ export default function Packaging() {
                     lineHeight: 1.9,
                   }}
                 >
-                  2" die-cut · Matte vinyl · Navy & Champagne
+                  2&quot; die-cut · Matte vinyl · Oak leaf motif · Navy &amp; Champagne
                 </span>
               </div>
             </div>
