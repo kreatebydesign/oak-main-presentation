@@ -1,6 +1,7 @@
 import Reveal from "../Reveal";
 import Wordmark from "../Wordmark";
 import OakLeaf from "../concepts/OakLeaf";
+import MonogramPlus from "../MonogramPlus";
 
 const SERIF = "var(--font-cormorant), Didot, Georgia, serif";
 const SANS  = "var(--font-montserrat), sans-serif";
@@ -139,6 +140,29 @@ export default function LogoMark() {
           }}
         >
           <TagPreview leafPosition="bottom" />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 14,
+              padding: "8px 0",
+            }}
+          >
+            <MonogramPlus color="#D5BE97" size={36} />
+            <span
+              style={{
+                fontFamily: SANS,
+                fontSize: 7,
+                letterSpacing: "0.16em",
+                color: "#D5BE97",
+                opacity: 0.45,
+                textTransform: "uppercase",
+              }}
+            >
+              O + M Monogram
+            </span>
+          </div>
           <TagPreview leafPosition="top" />
           <div
             style={{

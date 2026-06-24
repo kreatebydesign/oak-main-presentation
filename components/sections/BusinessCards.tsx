@@ -133,7 +133,7 @@ export default function BusinessCards() {
               front={false}
               bg="#F7F2EC"
               name="Kayla Knight"
-              email="shopgirlkk@msn.com"
+              email="oakandmainboutique@gmail.com"
               phone="(541) 430-8219"
             />
           </div>

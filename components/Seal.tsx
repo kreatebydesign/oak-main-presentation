@@ -2,12 +2,12 @@
  * Seal — packaging sticker with approved oak leaf motif.
  *
  * Circular die-cut sticker for bags and tissue wrap.
- * Horizontal client-reference leaf centred; script Boutique below.
+ * Horizontal client-reference leaf centred; Oak + Main below.
  */
 
 import { OAK_LEAF_SRC, OAK_VIEWBOX } from "./concepts/OakLeaf";
 
-const SCRIPT = "var(--font-script), Snell Roundhand, cursive";
+const SERIF = "var(--font-cormorant), Didot, Georgia, serif";
 
 interface SealProps {
   color?: string;
@@ -28,8 +28,8 @@ export default function Seal({ color = "#1B2D42", size = 200, id: _id }: SealPro
   const leafTy = cy - leafH / 2 - size * 0.06;
 
   const leafBottom = leafTy + leafH;
-  const boutFontSz = size * 0.072;
-  const boutY      = leafBottom + size * 0.04;
+  const nameFontSz = size * 0.048;
+  const nameY      = leafBottom + size * 0.05;
 
   return (
     <svg
@@ -66,14 +66,15 @@ export default function Seal({ color = "#1B2D42", size = 200, id: _id }: SealPro
 
       <text
         x={cx}
-        y={boutY}
-        fontFamily={SCRIPT}
-        fontSize={boutFontSz}
+        y={nameY}
+        fontFamily={SERIF}
+        fontSize={nameFontSz}
         fill={color}
         textAnchor="middle"
+        letterSpacing={size * 0.008}
         opacity="0.85"
       >
-        Boutique
+        Oak + Main
       </text>
     </svg>
   );
