@@ -11,7 +11,7 @@
  */
 
 import Link from "next/link";
-import OakLeaf, { OAK_OUTLINE, OAK_MIDRIB } from "@/components/concepts/OakLeaf";
+import OakLeaf, { OAK_LEAF_SRC, OAK_VIEWBOX } from "@/components/concepts/OakLeaf";
 
 // ── Palette ────────────────────────────────────────────────────────────────────
 const C = {
@@ -147,11 +147,11 @@ function SealMark({ tc: _tc, size = 200 }: { tc?: string; size?: number }) {
   const cy = size / 2;
   const r  = size * 0.44;
 
-  // Leaf — occupies upper portion of circle
-  const leafH = Math.round(size * 0.42);
-  const leafW = Math.round(leafH * 48 / 72); // aspect ratio of the 48×72 viewBox
+  // Leaf — horizontal client reference, centred in circle
+  const leafH = Math.round(size * 0.22);
+  const leafW = Math.round(leafH * OAK_VIEWBOX.w / OAK_VIEWBOX.h);
   const leafX = cx - leafW / 2;
-  const leafY = size * 0.20;
+  const leafY = cy - leafH / 2 - size * 0.06;
 
   // Text — sits below leaf with generous breathing room
   const leafBottom = leafY + leafH;
@@ -161,9 +161,6 @@ function SealMark({ tc: _tc, size = 200 }: { tc?: string; size?: number }) {
   const nameSz = size * 0.060;
   const boutSz = size * 0.046;
 
-  // Scale from 48×72 viewBox
-  const leafSc = leafH / 72;
-
   return (
     <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
       {/* Navy fill */}
@@ -171,25 +168,16 @@ function SealMark({ tc: _tc, size = 200 }: { tc?: string; size?: number }) {
       {/* Inner thin ring — breathing room from the fill edge */}
       <circle cx={cx} cy={cy} r={r - size * 0.026} fill="none" stroke={C.champ} strokeWidth="0.4" opacity="0.32" />
 
-      {/* Oak leaf — SVG illustration, engraving style, 48×72 viewBox */}
-      <g transform={`translate(${leafX}, ${leafY}) scale(${leafSc})`}>
-        <path
-          d={OAK_OUTLINE}
-          fill="none"
-          stroke={C.champ}
-          strokeWidth={1.0 / leafSc}
-          strokeLinejoin="round"
-          strokeLinecap="round"
-          opacity="0.86"
-        />
-        <path
-          d={OAK_MIDRIB}
-          stroke={C.champ}
-          strokeWidth={0.36 / leafSc}
-          strokeLinecap="round"
-          opacity="0.28"
-        />
-      </g>
+      {/* Oak leaf — client-approved horizontal reference */}
+      <image
+        href={OAK_LEAF_SRC}
+        x={leafX}
+        y={leafY}
+        width={leafW}
+        height={leafH}
+        opacity={0.92}
+        preserveAspectRatio="xMidYMid meet"
+      />
 
       {/* Hairline divider between leaf and name */}
       <line

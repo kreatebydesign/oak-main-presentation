@@ -2,6 +2,7 @@ import Reveal from "../Reveal";
 
 const SERIF = "var(--font-cormorant), Didot, Georgia, serif";
 const SANS  = "var(--font-montserrat), sans-serif";
+const SCRIPT = "var(--font-script), Snell Roundhand, cursive";
 
 export default function Typography() {
   return (
@@ -94,8 +95,54 @@ export default function Typography() {
           <div style={{ width: "100%", height: 0.3, background: "#D5BE97", opacity: 0.12 }} />
         </Reveal>
 
-        {/* Montserrat display */}
+        {/* Script — Boutique subline */}
+        <Reveal delay={250}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+            <span
+              style={{
+                fontFamily: SANS,
+                fontSize: 7.5,
+                color: "#F7F2EC",
+                opacity: 0.3,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+              }}
+            >
+              Script — Pinyon Script
+            </span>
+            <span
+              style={{
+                fontFamily: SCRIPT,
+                fontSize: 48,
+                fontWeight: 400,
+                color: "#D5BE97",
+                lineHeight: 1,
+                userSelect: "none",
+              }}
+            >
+              Boutique
+            </span>
+            <span
+              style={{
+                fontFamily: SANS,
+                fontSize: 10,
+                fontWeight: 300,
+                color: "#F7F2EC",
+                opacity: 0.35,
+                letterSpacing: "0.06em",
+              }}
+            >
+              Logo subline · Packaging accents · Signature moments
+            </span>
+          </div>
+        </Reveal>
+
         <Reveal delay={300}>
+          <div style={{ width: "100%", height: 0.3, background: "#D5BE97", opacity: 0.12 }} />
+        </Reveal>
+
+        {/* Montserrat display */}
+        <Reveal delay={350}>
           <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
             <span
               style={{
@@ -141,12 +188,12 @@ export default function Typography() {
           </div>
         </Reveal>
 
-        <Reveal delay={400}>
+        <Reveal delay={450}>
           <div style={{ width: "100%", height: 0.3, background: "#D5BE97", opacity: 0.12 }} />
         </Reveal>
 
         {/* Hierarchy */}
-        <Reveal delay={500}>
+        <Reveal delay={550}>
           <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             <span
               style={{

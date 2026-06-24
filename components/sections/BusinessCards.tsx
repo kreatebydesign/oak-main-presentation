@@ -8,19 +8,23 @@ interface CardProps {
   front?: boolean;
   bg?: string;
   wordColor?: string;
+  boutiqueColor?: string;
   name?: string;
   email?: string;
-  tagline?: string;
+  phone?: string;
 }
 
 function BusinessCard({
   front = true,
   bg = "#F7F2EC",
   wordColor = "#1B2D42",
+  boutiqueColor,
   name,
   email,
-  tagline,
+  phone,
 }: CardProps) {
+  const bc = boutiqueColor ?? wordColor;
+
   return (
     <div
       style={{
@@ -33,31 +37,14 @@ function BusinessCard({
         alignItems: "center",
         justifyContent: "center",
         padding: "22px 28px",
-        gap: front ? 9 : 8,
+        gap: front ? 0 : 8,
         border: bg === "#F7F2EC" ? "0.5px solid #1B2D4214" : "none",
         boxShadow: "0 4px 32px rgba(27,45,66,0.06)",
         flexShrink: 0,
       }}
     >
       {front ? (
-        <>
-          {/* Shared Wordmark component — optically centred Boutique */}
-          <Wordmark size={15} color={wordColor} boutiqueColor={wordColor} />
-          {tagline && (
-            <span
-              style={{
-                fontFamily:    SANS,
-                fontSize:      6.5,
-                letterSpacing: "0.14em",
-                color:         wordColor,
-                opacity:       0.35,
-                textTransform: "uppercase",
-              }}
-            >
-              {tagline}
-            </span>
-          )}
-        </>
+        <Wordmark size={15} color={wordColor} boutiqueColor={bc} />
       ) : (
         <>
           <span
@@ -72,19 +59,35 @@ function BusinessCard({
           >
             {name}
           </span>
-          <div style={{ width: 56, height: 0.3, background: "#1B2D42", opacity: 0.15 }} />
           {email && (
-            <span
+            <a
+              href={`mailto:${email}`}
               style={{
                 fontFamily: SANS,
                 fontSize: 8,
                 fontWeight: 300,
                 color: "#8D7A67",
                 letterSpacing: "0.03em",
+                textDecoration: "none",
               }}
             >
               {email}
-            </span>
+            </a>
+          )}
+          {phone && (
+            <a
+              href={`tel:${phone.replace(/[^\d+]/g, "")}`}
+              style={{
+                fontFamily: SANS,
+                fontSize: 8,
+                fontWeight: 300,
+                color: "#8D7A67",
+                letterSpacing: "0.03em",
+                textDecoration: "none",
+              }}
+            >
+              {phone}
+            </a>
           )}
         </>
       )}
@@ -110,69 +113,46 @@ export default function BusinessCards() {
               fontSize: 9,
               letterSpacing: "0.28em",
               color: "#1B2D42",
-            opacity: 0.65,
-            textTransform: "uppercase",
-          }}
-        >
-          Business Card
+              opacity: 0.65,
+              textTransform: "uppercase",
+            }}
+          >
+            Business Card
           </span>
         </Reveal>
 
-        {/* Porcelain set */}
         <Reveal delay={100}>
           <div className="card-pair" style={{ display: "flex", gap: 14, alignItems: "center" }}>
-            <BusinessCard front bg="#F7F2EC" wordColor="#1B2D42" tagline="Roseburg, Oregon" />
+            <BusinessCard
+              front
+              bg="#F7F2EC"
+              wordColor="#1B2D42"
+              boutiqueColor="#D5BE97"
+            />
             <BusinessCard
               front={false}
               bg="#F7F2EC"
               name="Kayla Knight"
               email="shopgirlkk@msn.com"
+              phone="(541) 430-8219"
             />
           </div>
         </Reveal>
 
-        {/* Navy set */}
         <Reveal delay={200}>
-          <div className="card-pair" style={{ display: "flex", gap: 14, alignItems: "center" }}>
-            <BusinessCard front bg="#1B2D42" wordColor="#F7F2EC" tagline="Roseburg, Oregon" />
-            <BusinessCard
-              front={false}
-              bg="#F7F2EC"
-              name="Kayla Knight"
-              email="shopgirlkk@msn.com"
-            />
-          </div>
-        </Reveal>
-
-        <Reveal delay={300}>
-          <div style={{ display: "flex", flexDirection: "column", gap: 6, marginTop: 8 }}>
-            <span
-              style={{
-                fontFamily: SERIF,
-                fontSize: 18,
-                fontWeight: 400,
-                letterSpacing: "0.12em",
-                color: "#1B2D42",
-                textTransform: "uppercase",
-                userSelect: "none",
-              }}
-            >
-              Kayla Knight · Founder
-            </span>
-            <span
-              style={{
-                fontFamily: SANS,
-                fontSize: 8,
-                color: "#1B2D42",
-                opacity: 0.45,
-                letterSpacing: "0.04em",
-                lineHeight: 1.9,
-                maxWidth: 360,
-              }}
-            >
-              700gsm cotton stock · Soft-touch matte laminate · 3.5" × 2" · Two colorways
-            </span>
-          </div>
+          <span
+            style={{
+              fontFamily: SANS,
+              fontSize: 8,
+              color: "#1B2D42",
+              opacity: 0.45,
+              letterSpacing: "0.04em",
+              lineHeight: 1.9,
+              maxWidth: 360,
+            }}
+          >
+            700gsm cotton stock · Soft-touch matte laminate · 3.5&quot; × 2&quot;
+          </span>
         </Reveal>
       </div>
     </section>

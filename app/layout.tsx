@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Montserrat } from "next/font/google";
+import { Cormorant_Garamond, Montserrat, Pinyon_Script } from "next/font/google";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -14,6 +14,13 @@ const montserrat = Montserrat({
   subsets: ["latin"],
   weight: ["300", "400", "500"],
   variable: "--font-montserrat",
+  display: "swap",
+});
+
+const pinyonScript = Pinyon_Script({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-script",
   display: "swap",
 });
 
@@ -32,7 +39,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={`${cormorant.variable} ${montserrat.variable}`}>
+      <body className={`${cormorant.variable} ${montserrat.variable} ${pinyonScript.variable}`}>
         {children}
       </body>
     </html>

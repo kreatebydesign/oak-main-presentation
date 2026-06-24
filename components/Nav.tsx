@@ -11,6 +11,7 @@ const SECTIONS = [
   { id: "palette",    label: "Palette" },
   { id: "typography", label: "Type" },
   { id: "packaging",  label: "Packaging" },
+  { id: "cards",      label: "Cards" },
   { id: "social",     label: "Social" },
   { id: "events",     label: "Events" },
 ];

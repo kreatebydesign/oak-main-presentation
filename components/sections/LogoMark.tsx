@@ -1,18 +1,12 @@
 import Reveal from "../Reveal";
 import Wordmark from "../Wordmark";
-import Seal from "../Seal";
 import OakLeaf from "../concepts/OakLeaf";
 
 const SERIF = "var(--font-cormorant), Didot, Georgia, serif";
 const SANS  = "var(--font-montserrat), sans-serif";
 
 /**
- * StackedWordmark — stacked OAK / + / MAIN arrangement.
- * Secondary mark for narrow-format applications: hang tags, tissue stamps.
- *
- * The "+" is sized at 72% of the main text (not 50%) so it reads as a
- * proportional separator rather than a superscript. lineHeight is tightened
- * to keep the three lines as a cohesive unit.
+ * StackedWordmark — stacked OAK / + / MAIN for narrow-format applications.
  */
 function StackedWordmark({ color = "#F7F2EC", size = 22 }: { color?: string; size?: number }) {
   return (
@@ -21,7 +15,7 @@ function StackedWordmark({ color = "#F7F2EC", size = 22 }: { color?: string; siz
         <span
           key={w}
           style={{
-            fontFamily: SERIF,
+            fontFamily:    SERIF,
             fontSize:      i === 1 ? size * 0.72 : size,
             fontWeight:    400,
             letterSpacing: i === 1 ? "0.14em" : "0.22em",
@@ -39,34 +33,38 @@ function StackedWordmark({ color = "#F7F2EC", size = 22 }: { color?: string; siz
 }
 
 /**
- * Monogram — OM overlapping serif letterforms.
- * Tertiary element for intimate brand touchpoints.
+ * TagPreview — narrow-format tag with stacked wordmark + oak leaf accent.
  */
-function Monogram({ color = "#D5BE97", size = 120 }: { color?: string; size?: number }) {
+function TagPreview({
+  leafPosition = "bottom",
+}: {
+  leafPosition?: "top" | "bottom";
+}) {
+  const leaf = (
+    <div style={{ opacity: 0.65 }}>
+      <OakLeaf size={16} color="#D5BE97" sw={0.9} />
+    </div>
+  );
+
   return (
-    <svg width={size} height={size * 0.9} viewBox="0 0 130 120">
-      <text
-        x="6" y="95"
-        fontFamily={SERIF}
-        fontSize="90"
-        fontWeight="400"
-        fill={color}
-        style={{ userSelect: "none" }}
-      >
-        O
-      </text>
-      <text
-        x="50" y="95"
-        fontFamily={SERIF}
-        fontSize="90"
-        fontWeight="400"
-        fill={color}
-        opacity="0.92"
-        style={{ userSelect: "none" }}
-      >
-        M
-      </text>
-    </svg>
+    <div
+      style={{
+        width: 72,
+        height: 120,
+        background: "#1B2D42",
+        borderRadius: 3,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "16px 8px",
+        gap: 8,
+      }}
+    >
+      {leafPosition === "top" && leaf}
+      <StackedWordmark color="#F7F2EC" size={14} />
+      {leafPosition === "bottom" && leaf}
+    </div>
   );
 }
 
@@ -84,7 +82,6 @@ export default function LogoMark() {
         gap: 56,
       }}
     >
-      {/* Eyebrow */}
       <Reveal>
         <span
           style={{
@@ -100,7 +97,7 @@ export default function LogoMark() {
         </span>
       </Reveal>
 
-      {/* Primary mark — OAK + MAIN / Boutique */}
+      {/* Primary lockup — serif wordmark + script Boutique */}
       <Reveal delay={100}>
         <Wordmark
           color="#F7F2EC"
@@ -110,42 +107,62 @@ export default function LogoMark() {
         />
       </Reveal>
 
-      {/* Secondary wordmark — smaller alt-weight mark, Boutique hidden at this scale */}
+      {/* Porcelain colorway preview */}
       <Reveal delay={200}>
-        <Wordmark
-          color="#D5BE97"
-          size={32}
-          tracking="0.38em"
-          weight={300}
-          hideBoutique
-        />
+        <div
+          style={{
+            background: "#F7F2EC",
+            padding: "36px 48px",
+            borderRadius: 2,
+          }}
+        >
+          <Wordmark
+            color="#1B2D42"
+            size={40}
+            tracking="0.22em"
+            boutiqueColor="#D5BE97"
+          />
+        </div>
       </Reveal>
 
-      {/* Three marks row */}
+      {/* Supporting applications — stacked mark + oak leaf */}
       <Reveal delay={300} direction="up">
         <div
           className="mark-row"
           style={{
             display: "flex",
-            gap: 80,
-            alignItems: "center",
+            gap: 48,
+            alignItems: "flex-end",
             marginTop: 24,
             flexWrap: "wrap",
             justifyContent: "center",
           }}
         >
-          {/* Stacked wordmark */}
-          <StackedWordmark color="#F7F2EC" size={22} />
-
-          <div className="divider-v" style={{ width: 0.5, height: 100, background: "#D5BE97", opacity: 0.25 }} />
-
-          {/* Monogram */}
-          <Monogram color="#D5BE97" size={110} />
-
-          <div className="divider-v" style={{ width: 0.5, height: 100, background: "#D5BE97", opacity: 0.25 }} />
-
-          {/* Premium seal — oak leaf as secondary luxury motif */}
-          <Seal color="#D5BE97" size={140} id="mark-seal" />
+          <TagPreview leafPosition="bottom" />
+          <TagPreview leafPosition="top" />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 16,
+              padding: "8px 0",
+            }}
+          >
+            <OakLeaf size={48} color="#D5BE97" sw={1} veins />
+            <span
+              style={{
+                fontFamily: SANS,
+                fontSize: 7,
+                letterSpacing: "0.16em",
+                color: "#D5BE97",
+                opacity: 0.45,
+                textTransform: "uppercase",
+              }}
+            >
+              Supporting Motif
+            </span>
+          </div>
         </div>
       </Reveal>
 
@@ -188,11 +205,11 @@ export default function LogoMark() {
           }}
         >
           {[
-            { bg: "#122033", tc: "#F7F2EC" },
-            { bg: "#D5BE97", tc: "#1B2D42" },
-            { bg: "#F7F2EC", tc: "#1B2D42" },
-            { bg: "#E3DACE", tc: "#1B2D42" },
-          ].map(({ bg, tc }, i) => (
+            { bg: "#122033", wc: "#F7F2EC", bc: "#D5BE97" },
+            { bg: "#D5BE97", wc: "#1B2D42", bc: "#1B2D42" },
+            { bg: "#F7F2EC", wc: "#1B2D42", bc: "#D5BE97" },
+            { bg: "#E3DACE", wc: "#1B2D42", bc: "#D5BE97" },
+          ].map(({ bg, wc, bc }, i) => (
             <div
               key={i}
               className="colorway-item"
@@ -207,7 +224,7 @@ export default function LogoMark() {
                 justifyContent: "center",
               }}
             >
-              <Wordmark size={12} color={tc} />
+              <Wordmark size={12} color={wc} boutiqueColor={bc} />
             </div>
           ))}
         </div>

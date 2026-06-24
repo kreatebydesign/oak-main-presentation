@@ -57,6 +57,7 @@ function ShoppingBag({ scale = 1 }: { scale?: number }) {
           color="#1B2D42"
           size={f(18)}
           tracking="0.22em"
+          boutiqueColor="#D5BE97"
         />
 
         {/* Oak leaf — subtle accent near bag base */}
@@ -165,7 +166,6 @@ function ClothingTag() {
         >
           ROSEBURG{"\n"}OREGON
         </span>
-        <div style={{ width: 22, height: 0.4, background: "#D5BE97", opacity: 0.4 }} />
         <span
           style={{
             fontFamily: SANS,
@@ -176,7 +176,7 @@ function ClothingTag() {
             letterSpacing: "0.08em",
           }}
         >
-          EST. 2024
+          EST. 2026
         </span>
       </div>
     </div>
@@ -255,8 +255,8 @@ function ThankYouCard() {
         >
           We appreciate your support and hope you love what you found.
         </span>
-        <span style={{ fontFamily: SERIF, fontSize: 8, fontStyle: "italic", color: "#1B2D42", opacity: 0.55, letterSpacing: "0.06em" }}>
-          — Oak + Main
+        <span style={{ fontFamily: "var(--font-script), cursive", fontSize: 11, color: "#1B2D42", opacity: 0.65 }}>
+          Oak + Main
         </span>
       </div>
     </div>

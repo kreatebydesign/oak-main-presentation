@@ -65,7 +65,7 @@ export default function HeroReveal() {
       {/* Year — top left */}
       <div style={{ position: "absolute", top: 43, left: 52, ...fade(4, 0) }}>
         <span style={{ fontFamily: SANS, fontSize: 7.5, letterSpacing: "0.18em", color: "#1B2D42", opacity: 0.3, textTransform: "uppercase" }}>
-          Est. 2024
+          Est. 2026
         </span>
       </div>
 
@@ -78,16 +78,12 @@ export default function HeroReveal() {
           gap:           28,
         }}
       >
-        {/*
-         * Primary logo — OAK + MAIN only.
-         * No Boutique. No location. No decoration.
-         * Jenni Kayne / The Row restraint: the typography is the brand.
-         */}
         <div style={fade(2)}>
           <Wordmark
             color="#1B2D42"
             size={72}
             tracking="0.24em"
+            boutiqueColor="#D5BE97"
           />
         </div>
       </div>
