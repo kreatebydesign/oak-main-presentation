@@ -6,6 +6,69 @@ import MonogramPlus from "../MonogramPlus";
 const SERIF = "var(--font-cormorant), Didot, Georgia, serif";
 const SANS  = "var(--font-montserrat), sans-serif";
 
+/** Shared mark-row geometry — every column uses the same invisible frame. */
+const MARK_BOX_H = 120;
+const CAP_GAP    = 14;
+const CAP_LINE_H = 10;
+
+const CAPTION: React.CSSProperties = {
+  fontFamily:    SANS,
+  fontSize:      7,
+  letterSpacing: "0.16em",
+  color:         "#D5BE97",
+  opacity:       0.45,
+  textTransform: "uppercase",
+  textAlign:     "center",
+  lineHeight:    1,
+  whiteSpace:    "nowrap",
+  userSelect:    "none",
+};
+
+function BrandMarkCell({
+  caption,
+  children,
+}: {
+  caption?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div
+      style={{
+        display:       "flex",
+        flexDirection: "column",
+        alignItems:    "center",
+        width:         "100%",
+      }}
+    >
+      {/* Mark area — equal height, optical vertical centre */}
+      <div
+        style={{
+          height:         MARK_BOX_H,
+          width:          "100%",
+          display:        "flex",
+          alignItems:     "center",
+          justifyContent: "center",
+        }}
+      >
+        {children}
+      </div>
+      {/* Caption rail — fixed height so every baseline aligns */}
+      <div
+        style={{
+          marginTop:      CAP_GAP,
+          height:         CAP_LINE_H,
+          width:          "100%",
+          display:        "flex",
+          alignItems:     "flex-end",
+          justifyContent: "center",
+        }}
+      >
+        {caption && <span style={CAPTION}>{caption}</span>}
+      </div>
+    </div>
+  );
+}
+
 /**
  * StackedWordmark — stacked OAK / + / MAIN for narrow-format applications.
  */
@@ -43,7 +106,7 @@ function TagPreview({
 }) {
   const leaf = (
     <div style={{ opacity: 0.65 }}>
-      <OakLeaf size={16} color="#D5BE97" sw={0.9} />
+      <OakLeaf size={16} opacity={0.65} />
     </div>
   );
 
@@ -126,67 +189,34 @@ export default function LogoMark() {
         </div>
       </Reveal>
 
-      {/* Supporting applications — stacked mark + oak leaf */}
+      {/* Brand marks — four equal columns, shared bounding box */}
       <Reveal delay={300} direction="up">
         <div
           className="mark-row"
           style={{
-            display: "flex",
-            gap: 48,
-            alignItems: "flex-end",
-            marginTop: 24,
-            flexWrap: "wrap",
-            justifyContent: "center",
+            display:             "grid",
+            gridTemplateColumns: "repeat(4, 1fr)",
+            gap:                 32,
+            width:               "100%",
+            maxWidth:            640,
+            marginTop:           24,
           }}
         >
-          <TagPreview leafPosition="bottom" />
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: 14,
-              padding: "8px 0",
-            }}
-          >
+          <BrandMarkCell>
+            <TagPreview leafPosition="bottom" />
+          </BrandMarkCell>
+
+          <BrandMarkCell caption="O+M Monogram">
             <MonogramPlus color="#D5BE97" size={36} />
-            <span
-              style={{
-                fontFamily: SANS,
-                fontSize: 7,
-                letterSpacing: "0.16em",
-                color: "#D5BE97",
-                opacity: 0.45,
-                textTransform: "uppercase",
-              }}
-            >
-              O + M Monogram
-            </span>
-          </div>
-          <TagPreview leafPosition="top" />
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: 16,
-              padding: "8px 0",
-            }}
-          >
-            <OakLeaf size={48} color="#D5BE97" sw={1} veins />
-            <span
-              style={{
-                fontFamily: SANS,
-                fontSize: 7,
-                letterSpacing: "0.16em",
-                color: "#D5BE97",
-                opacity: 0.45,
-                textTransform: "uppercase",
-              }}
-            >
-              Supporting Motif
-            </span>
-          </div>
+          </BrandMarkCell>
+
+          <BrandMarkCell>
+            <TagPreview leafPosition="top" />
+          </BrandMarkCell>
+
+          <BrandMarkCell caption="Supporting Motif">
+            <OakLeaf size={44} opacity={0.95} />
+          </BrandMarkCell>
         </div>
       </Reveal>
 
@@ -200,7 +230,7 @@ export default function LogoMark() {
             opacity: 0.45,
           }}
         >
-          <OakLeaf size={18} color="#D5BE97" sw={0.9} />
+          <OakLeaf size={18} opacity={0.55} />
           <span
             style={{
               fontFamily: SANS,
@@ -212,7 +242,7 @@ export default function LogoMark() {
           >
             Oak Leaf — Secondary Brand Motif
           </span>
-          <OakLeaf size={18} color="#D5BE97" sw={0.9} />
+          <OakLeaf size={18} opacity={0.55} />
         </div>
       </Reveal>
 

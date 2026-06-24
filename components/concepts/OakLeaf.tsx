@@ -1,10 +1,9 @@
 /**
  * OakLeaf — client-approved horizontal oak leaf motif.
  *
- * Uses the client reference artwork directly (492×328, wide horizontal flow).
+ * Single master artwork used across the entire presentation.
+ * Source: client-approved reference (492×328, wide horizontal flow).
  * Champagne linework on transparent background.
- *
- * Used everywhere: logo section, packaging, tags, cards, seal sticker.
  */
 
 export const OAK_LEAF_SRC = "/oak-leaf.png";
@@ -14,16 +13,16 @@ export const OAK_VIEWBOX = { w: 492, h: 328 };
 
 interface OakLeafProps {
   /** Render height in pixels; width scales from reference aspect ratio. */
-  size?:   number;
-  /** @deprecated Client asset uses fixed champagne linework. */
-  color?:  string;
-  /** @deprecated Retained for call-site compatibility. */
-  sw?:     number;
-  /** @deprecated Retained for call-site compatibility. */
-  veins?:  boolean;
-  /** @deprecated Retained for call-site compatibility. */
-  filled?: boolean;
+  size?:    number;
   opacity?: number;
+  /** @deprecated Client asset uses fixed champagne linework. */
+  color?:   string;
+  /** @deprecated Retained for call-site compatibility. */
+  sw?:      number;
+  /** @deprecated Retained for call-site compatibility. */
+  veins?:   boolean;
+  /** @deprecated Retained for call-site compatibility. */
+  filled?:  boolean;
 }
 
 export default function OakLeaf({
@@ -42,12 +41,14 @@ export default function OakLeaf({
       height={h}
       draggable={false}
       style={{
-        display:     "block",
-        width:       w,
-        height:      h,
+        display:       "block",
+        width:         w,
+        height:        h,
+        maxWidth:      "100%",
+        objectFit:     "contain",
         opacity,
-        flexShrink:  0,
-        userSelect:  "none",
+        flexShrink:    0,
+        userSelect:    "none",
         pointerEvents: "none",
       }}
     />

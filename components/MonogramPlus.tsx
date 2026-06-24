@@ -1,5 +1,5 @@
 /**
- * MonogramPlus — O + M tertiary mark.
+ * MonogramPlus — O+M tertiary mark.
  *
  * Disconnected serif letterforms with proportional "+" separator,
  * matching the primary OAK + MAIN wordmark logic.
@@ -14,14 +14,13 @@ interface MonogramPlusProps {
 
 export default function MonogramPlus({ color = "#D5BE97", size = 32 }: MonogramPlusProps) {
   const plusSize = Math.round(size * 0.72);
-  const gap      = Math.round(size * 0.32);
 
   return (
     <div
       style={{
         display:    "inline-flex",
         alignItems: "center",
-        gap,
+        gap:        0,
         userSelect: "none",
       }}
     >

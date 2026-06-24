@@ -70,7 +70,7 @@ function ShoppingBag({ scale = 1 }: { scale?: number }) {
             opacity:     0.25,
           }}
         >
-          <OakLeaf size={f(13)} color="#1B2D42" sw={0.85} />
+          <OakLeaf size={f(13)} opacity={1} />
         </div>
       </div>
     </div>
@@ -134,7 +134,7 @@ function ClothingTag() {
         ))}
         {/* Oak leaf accent — replaces the OM */}
         <div style={{ marginTop: 6, opacity: 0.55 }}>
-          <OakLeaf size={13} color="#D5BE97" sw={0.9} />
+          <OakLeaf size={13} opacity={0.55} />
         </div>
       </div>
 
@@ -222,7 +222,7 @@ function ThankYouCard() {
         </span>
         {/* Oak leaf — delicate close */}
         <div style={{ opacity: 0.35 }}>
-          <OakLeaf size={12} color="#1B2D42" sw={0.9} />
+          <OakLeaf size={12} opacity={0.45} />
         </div>
       </div>
 

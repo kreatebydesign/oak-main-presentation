@@ -1,4 +1,5 @@
 import Reveal from "../Reveal";
+import OakLeaf from "../concepts/OakLeaf";
 
 const SERIF = "var(--font-cormorant), Didot, Georgia, serif";
 const SANS  = "var(--font-montserrat), sans-serif";
@@ -81,16 +82,7 @@ export default function Social() {
                     justifyContent: "center",
                   }}
                 >
-                  <span
-                    style={{
-                      fontFamily: SERIF,
-                      fontSize: 28,
-                      color: "#D5BE97",
-                      userSelect: "none",
-                    }}
-                  >
-                    OM
-                  </span>
+                  <OakLeaf size={26} opacity={0.95} />
                 </div>
               </div>
             </Reveal>
@@ -139,16 +131,7 @@ export default function Social() {
                           border: h.bg === "#F7F2EC" ? "0.5px solid #1B2D4218" : "none",
                         }}
                       >
-                        <span
-                          style={{
-                            fontFamily: SERIF,
-                            fontSize: 11,
-                            color: h.tc,
-                            userSelect: "none",
-                          }}
-                        >
-                          OM
-                        </span>
+                        <OakLeaf size={17} opacity={0.95} />
                       </div>
                       <span
                         style={{
@@ -245,9 +228,7 @@ export default function Social() {
                     >
                       {p.copy}
                     </span>
-                    <span style={{ fontFamily: SERIF, fontSize: 7, color: "#D5BE97", opacity: 0.65 }}>
-                      OM
-                    </span>
+                    <OakLeaf size={10} opacity={0.65} />
                   </div>
                 ))}
               </div>

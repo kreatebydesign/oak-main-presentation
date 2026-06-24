@@ -105,8 +105,8 @@ html, body { overscroll-behavior: none; }
   /* 3-col → 2-col for events and packaging items */
   .grid-3col     { grid-template-columns: 1fr 1fr !important; gap: 28px !important; }
   .events-grid   { grid-template-columns: 1fr 1fr !important; gap: 12px !important; }
-  /* Mark row wraps, tighter gap */
-  .mark-row      { gap: 40px !important; flex-wrap: wrap !important; justify-content: center !important; }
+  /* Mark row — equal columns, tighter gap on tablet */
+  .mark-row      { gap: 40px !important; grid-template-columns: repeat(2, 1fr) !important; max-width: 480px !important; }
   .divider-v     { display: none !important; }
   /* Colorway tiles wrap at 2-per-row */
   .colorway-row  { flex-wrap: wrap !important; }
@@ -143,7 +143,7 @@ html, body { overscroll-behavior: none; }
   .grid-3col        { grid-template-columns: 1fr !important; gap: 24px !important; }
   .grid-2col        { grid-template-columns: 1fr !important; gap: 24px !important; }
   .events-grid      { grid-template-columns: 1fr !important; gap: 10px !important; }
-  .mark-row         { flex-direction: column !important; gap: 36px !important; }
+  .mark-row         { grid-template-columns: 1fr !important; max-width: 280px !important; gap: 36px !important; }
   .bag-layout       { gap: 28px !important; }
   .colorway-row     { flex-wrap: wrap !important; }
   .colorway-item    { min-width: calc(50% - 6px) !important; }
